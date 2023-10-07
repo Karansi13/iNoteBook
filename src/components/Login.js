@@ -2,7 +2,7 @@ import React,{ useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 // The useHistory() hook has been deprecated and replaced by the useNavigate() hook in React v6. 
 
-export default function Login() {
+export default function Login(props) {
 
     const[credentials, setcredentials] = useState({email: "", password: ""})
     let Navigate = useNavigate();
@@ -21,10 +21,11 @@ export default function Login() {
           if(json.success){
             // Save the auth token and redirect
             localStorage.setItem('token',json.authtoken)  
-            Navigate("/");             
+            Navigate("/");    
+            props.showAlert("Logged in Successfully","success");         
           }
           else{
-            alert("Invalid Credentials");
+            props.showAlert("Invalid Details","danger");
           }
     }
 

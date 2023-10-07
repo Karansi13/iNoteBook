@@ -1,11 +1,11 @@
 
 import Notes from './Notes'
-const Home = () => {
-   
+const Home = (props) => {
+   const {showAlert} = props;
     // eslint-disable-next-line
     return (
         <div>
-           <Notes/>
+           <Notes showAlert = {showAlert}/>
         </div>
     )
 }
