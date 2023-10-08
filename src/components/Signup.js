@@ -7,6 +7,7 @@ export default function Signup(props) {
     let Navigate = useNavigate();
 
     const handleSubmit = async (e) => {
+        props.setProgress(0)
         e.preventDefault();   // nhi krenge to page reload hoga
 
         const { name, email, password } = credentials;
@@ -17,27 +18,31 @@ export default function Signup(props) {
             },
             body: JSON.stringify({ name, email, password }),
         });
+        props.setProgress(40)
         const json = await response.json();
         console.log(json)
         if (json.success) {
+            props.setProgress(60)
             // Save the auth token and redirect
-            localStorage.setItem('token', json.authtoken)
+            localStorage.setItem('token', json.authToken)  // changed
+            props.showAlert("Account created successfully","success");
             Navigate("/");
-            props.showAlert("Account created successfully","danger");
         }
         else {
             props.showAlert("Invalid Credentials","danger");
         }
-
+        props.setProgress(100)
     }
     const onChange = (e) => {
         setcredentials({ ...credentials, [e.target.name]: e.target.value })
     }
 
     return (
-        <div className='container'>
+        <>
+            <h2 className='mt-3 text-center'>Signup to use iNoteBook</h2>
+        <div className='container my-5' style={{width: '35vw'}}>
             <form onSubmit={handleSubmit}>
-                <div className="mb-3">
+                <div className="my-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">Name</label>
                     <input type="text" className="form-control" onChange={onChange} id="name" name="name" aria-describedby="emailHelp" />
 
@@ -56,8 +61,9 @@ export default function Signup(props) {
                     <input type="password" className="form-control" onChange={onChange} id="cpassword" name='cpassword' minLength={5} required/>
                 </div>
 
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn">Submit</button>
             </form>
         </div>
+        </>
     )
 }

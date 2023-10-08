@@ -9,7 +9,7 @@ import Alert from './components/Alert';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import { useState } from 'react';
-
+import LoadingBar from 'react-top-loading-bar'
 
 function App() {
   const [alert, setAlert] = useState(null);
@@ -22,19 +22,27 @@ function App() {
       setAlert(null);
     },1500)
   }
+
+  const [progress , setProgress] = useState(0)
+
   // home me showalert lagaane se continue krna h
   return (
     <>
       <NoteState>
         <Router>
           <Navbar />
+          <LoadingBar
+          height={1.7}
+          color='rgb(238, 160, 160)'
+          progress={progress} 
+          />
           <Alert alert={alert}/>
           <div className="container">
             <Routes>
-              <Route exact path="/" element={<Home showAlert={showAlert} />} />
-              <Route exact path="/about" element={<About />} />
-              <Route exact path="/login" element={<Login showAlert={showAlert} />} />
-              <Route exact path="/signup" element={<Signup showAlert={showAlert} />} />
+              <Route exact path="/" element={<Home showAlert={showAlert} setProgress={setProgress} />} />
+              <Route exact path="/about" element={<About setProgress={setProgress}/>} />
+              <Route exact path="/login" element={<Login showAlert={showAlert} setProgress={setProgress} />} />
+              <Route exact path="/signup" element={<Signup showAlert={showAlert} setProgress={setProgress}/>} />
             </Routes>
           </div>
         </Router>

@@ -99,9 +99,12 @@ router.post('/login', [
                 id: user.id
             }
         }
-        const authtoken = jwt.sign(data, JWT_SECRET);
+
+
+        // ABHI CHANGE KIYA HU
+        const authToken = jwt.sign(data, JWT_SECRET);
         success = true;
-        res.json({ success, authtoken })
+        res.json({ success, authToken })
 
     } catch (error) {
         console.error(error.message);
@@ -115,9 +118,9 @@ router.post('/login', [
 router.post('/getuser', fetchuser, async (req, res) => {
 
     try {
-        userId = req.user.id;
+        const userId = req.user.id;
         const user = await User.findById(userId).select("-password");
- res.send(user)
+        res.send(user)
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");

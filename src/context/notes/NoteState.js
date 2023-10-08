@@ -14,7 +14,7 @@ const NoteState = (props) => {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUxYWFiMDNkYmI2MDcwMjkwMzUwZjQ3In0sImlhdCI6MTY5NjI1Mjk1Nn0.H70ru3MFlxT4IY_ZhPwDYu52FrfKnEVsBHSwJY-_MsA",
+        "auth-token": localStorage.getItem('token'),
       },
     });
     const json = await response.json();
@@ -30,7 +30,7 @@ const NoteState = (props) => {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUxYWFiMDNkYmI2MDcwMjkwMzUwZjQ3In0sImlhdCI6MTY5NjI1Mjk1Nn0.H70ru3MFlxT4IY_ZhPwDYu52FrfKnEVsBHSwJY-_MsA",
+        "auth-token": localStorage.getItem('token'),
       },
       body: JSON.stringify({title ,description ,tag}),
     });
@@ -45,10 +45,11 @@ const NoteState = (props) => {
       method: "DELETE", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUxYWFiMDNkYmI2MDcwMjkwMzUwZjQ3In0sImlhdCI6MTY5NjI1Mjk1Nn0.H70ru3MFlxT4IY_ZhPwDYu52FrfKnEVsBHSwJY-_MsA",
+        "auth-token": localStorage.getItem('token'),
       }
     });
     const json = await response.json();
+    console.log(json)
 
     const newNotes = notes.filter((note) => { return note._id !== id })
     setNotes(newNotes)
@@ -61,11 +62,12 @@ const NoteState = (props) => {
       method: "PUT", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUxYWFiMDNkYmI2MDcwMjkwMzUwZjQ3In0sImlhdCI6MTY5NjI1Mjk1Nn0.H70ru3MFlxT4IY_ZhPwDYu52FrfKnEVsBHSwJY-_MsA",
+        "auth-token": localStorage.getItem('token'),
       },
       body: JSON.stringify({title ,description ,tag}),
     });
     const json = await response.json();
+    console.log(json)
 
     let newNotes = JSON.parse(JSON.stringify(notes))
     // LOGIC TO EDIT IN CLIENT

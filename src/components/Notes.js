@@ -4,12 +4,20 @@ import { useContext } from 'react';
 import Noteitem from './Noteitem';
 import AddNote from './AddNote';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Notes = (props) => {
-  const context = useContext(NoteContext)
+  let Navigate = useNavigate();
+  const context = useContext(NoteContext);
   const { notes, getNotes ,editNote} = context;
   useEffect(() => {
-    getNotes()
+    // changed
+    if(localStorage.getItem('token')){  
+      getNotes()
+    }
+    else{
+      Navigate("/login")
+    }
     // eslint-disable-next-line
   }, [])
   const ref = useRef(null)
@@ -26,12 +34,12 @@ const Notes = (props) => {
     editNote(note.id, note.etitle, note.edescription, note.etag)
     refClose.current.click();
     props.showAlert("Updated successfully" , "success");
-}
-
-const onChange = (e)=>{
+  }
+  
+  const onChange = (e)=>{
     setNote({...note, [e.target.name]: e.target.value})
-}
-
+  }
+  
   return (
     <>
       <AddNote showAlert={props.showAlert}/>
@@ -41,7 +49,7 @@ const onChange = (e)=>{
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h1 className="modal-title fs-5" id="exampleModalLabel">Edit Note</h1>
+              <h2 className="modal-title fs-5" id="exampleModalLabel">Edit Note</h2>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
@@ -61,8 +69,8 @@ const onChange = (e)=>{
             </form>
             </div>
             <div className="modal-footer">
-              <button type="button" ref={refClose}className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button disabled={note.etitle.length<5 || note.edescription.length<5}  type="button" onClick={handleClick} className="btn btn-primary">Update Note</button>
+              <button type="button" ref={refClose}className="btn" data-bs-dismiss="modal">Close</button>
+              <button disabled={note.etitle.length<5 || note.edescription.length<5}  type="button" onClick={handleClick} className="btn ">Update Note</button>
             </div>
           </div>
         </div>
@@ -73,7 +81,7 @@ const onChange = (e)=>{
         {notes.length===0 && 'No notes to display'}
         </div>
         {notes.map((note) => {
-          return <Noteitem key={note._id} updateNote={updateNote} showAlert={props.showAlert} note={note} />
+          return <Noteitem className="notes" key={note._id} updateNote={updateNote} showAlert={props.showAlert} note={note} />
         })}
       </div>
     </>

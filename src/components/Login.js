@@ -7,6 +7,8 @@ export default function Login(props) {
     const[credentials, setcredentials] = useState({email: "", password: ""})
     let Navigate = useNavigate();
     const handleSubmit = async (e) =>{
+      props.setProgress(0)
+
         e.preventDefault();   // nhi krenge to page reload hoga
 
         const response = await fetch("http://localhost:5000/api/auth/login", {
@@ -16,17 +18,21 @@ export default function Login(props) {
             },
             body: JSON.stringify({email: credentials.email, password: credentials.password}),
           });
+          props.setProgress(40)
           const json = await response.json();
-          console.log(json)
+          // console.log(json)
           if(json.success){
+            props.setProgress(60)
             // Save the auth token and redirect
-            localStorage.setItem('token',json.authtoken)  
-            Navigate("/");    
+            localStorage.setItem('token',json.authToken)  //Abhi change kiya hu
             props.showAlert("Logged in Successfully","success");         
+            Navigate("/");    
           }
           else{
             props.showAlert("Invalid Details","danger");
           }
+          props.setProgress(100)
+
     }
 
 
@@ -37,8 +43,11 @@ export default function Login(props) {
 
 
     return (
+      <>
+          <h2 className='mt-3 text-center'>Login to use iNoteBook</h2>
+          <div className='container my-5' style={{width: '35vw'}}>
         <form onSubmit={handleSubmit}>
-            <div className="mb-3">
+            <div className="my-3">
                 <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
                 <input type="email" className="form-control" value={credentials.email} onChange={onChange} id="email" name='email' aria-describedby="emailHelp" />
                 <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
@@ -48,7 +57,9 @@ export default function Login(props) {
                 <input type="password" className="form-control" value={credentials.password} onChange={onChange} id="password" name='password'/>
             </div>
 
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="submit" className="btn my-3">Submit</button>
         </form>
+        </div>
+        </>
     )
 }

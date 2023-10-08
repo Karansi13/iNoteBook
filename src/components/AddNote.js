@@ -14,7 +14,7 @@ export default function AddNote(props) {
         setNote({title: "", description: "",tag: ""})
         props.showAlert("Added successfully" , "success");
     }
-
+    
     const onChange = (e)=>{
         setNote({...note, [e.target.name]: e.target.value})
     }
@@ -35,7 +35,7 @@ export default function AddNote(props) {
                     <input type="text" className="form-control" id="tag" name="tag" value={note.tag} onChange={onChange} minLength={5} required />
                 </div>
                
-                <button disabled={note.title.length<5 || note.description.length<5} type="submit" className="btn btn-primary" onClick={handleClick}>Add Note</button>
+                <button disabled={note.title.length<5 || note.description.length<5} type="submit" className="btn" onClick={handleClick}>Add Note</button>
             </form>
         </div>
     )

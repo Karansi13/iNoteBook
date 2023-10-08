@@ -1,3 +1,7 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap'); */
+*{
+box-sizing: border-box;
+}
 .App {
   text-align: center;
 }
@@ -37,6 +41,52 @@
   }
 }
 
+
 i{
   cursor: pointer;
+}
+h2{
+  color: rgb(238, 160, 160);
+}
+body{
+  background-color: #202124;
+}
+label{
+  color: rgb(238, 160, 160);
+}
+#emailHelp{
+  color: rgb(238, 160, 160);
+}
+.nav-link{
+  color: rgb(238, 160, 160);
+  display: flex;
+  justify-content: space-evenly;
+  width: 100px;
+}
+.nav-link:hover{
+  color: whitesmoke;
+}
+.title{
+  color: rgb(238, 160, 160);
+}
+.btn{
+  background-color: rgb(238, 160, 160);
+  color: white;
+} 
+.btn-close{
+  color: rgb(238, 160, 160);
+}
+.btn:hover{
+  background-color: rgb(238, 160, 160);
+  color: #202124;
+} 
+.modal{
+  background-color: #202124;
+}
+/* .navbar{
+  font-family: 'Indie Flower', cursive;
+  font-size: 20px;
+} */
+ .card-body{ 
+  flex-wrap: wrap;
 }
